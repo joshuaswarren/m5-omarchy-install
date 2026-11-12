@@ -35,6 +35,7 @@ owner=${M5_USER:-${SUDO_USER:-$(id -un)}}
 
 say() { printf '%s %s\n' "$(date -u +%H:%M:%S)" "$*"; }
 die() { printf '%s FAIL: %s\n' "$(date -u +%H:%M:%S)" "$*" >&2; exit 1; }
+[[ $owner != root ]] || die "the Omarchy owner would be root; run through sudo from your account or set M5_USER"
 
 fpr_of() { gpg --batch --show-keys --with-colons "$1" 2>/dev/null | awk -F: '$1=="fpr"{print $10; exit}'; }
 
